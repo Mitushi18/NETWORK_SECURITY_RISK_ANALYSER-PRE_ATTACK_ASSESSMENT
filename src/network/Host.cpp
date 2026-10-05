@@ -14,10 +14,10 @@ std::string Host::getHostname() const {
     return hostname;
 }
 
-void Host::addOpenPort(int port) {
+void Host::addOpenPort(const Port& port) {
     openPorts.push_back(port);
 }
 
-const std::vector<int>& Host::getOpenPorts() const {
+const std::vector<Port>& Host::getOpenPorts() const {
     return openPorts;
 }
