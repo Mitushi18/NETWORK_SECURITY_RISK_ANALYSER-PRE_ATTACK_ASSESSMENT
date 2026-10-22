@@ -1,67 +1,53 @@
-# PBL_SEM3_T131
-# Network Security Risk Analyzer
-### Trying to Catch Risky Devices Before They Become a Real Problem — Built with DSA & OOPS in C++
+# NetShield: Pre-Attack Network Risk Analyzer
 
-So this is a C++ and Data Structures project we've been working on. The basic idea is pretty simple — instead of waiting for something to go wrong on a network, why not scan it ahead of time and figure out which devices are actually risky? That's what this does.
+A C++ tool that finds the riskiest devices in a network before an attacker does.
 
-## What It Actually Does
+## What it does
 
-* 🔹 We're treating the whole network like a **Graph**
-  * Each device is just a **Node**
-  * Every connection between devices is an **Edge**
-* 🔹 Every device gets a **Risk Score**, and that's based on:
-  * How vulnerable it is
-  * What kind of access it has
-  * How important it is to the rest of the network
-* 🔹 We're using **BFS and DFS** to actually explore the network:
-  * See how devices are connected
-  * Figure out what's reachable from where
-  * Basically get a real sense of the network's layout instead of guessing
-* 🔹 There's a **Priority Queue** doing the ranking:
-  * It sorts devices by how risky they are
-  * So the dangerous ones don't just get lost in a long list — they actually surface first
-* 🔹 We're also planning to add **Hashing and Binary Search Trees**, mainly so:
-  * Looking up a specific device is faster
-  * All the risk data stays organized instead of turning into a mess as the network gets bigger
+Most security tools check one device at a time. Attackers don't work that way. They hop from one machine to the next. NetShield treats the network as a graph, with devices as nodes and connections as edges, so it can see how a weak spot in one place opens the door to others. It then ranks devices by risk so admins know what to fix first.
 
----
+## How it works
 
-## How We Structured the Code
+1. Reads a text file describing the devices and their connections.
+2. Creates a Host object for each device.
+3. Builds the graph, with each host keeping a neighbor list (an adjacency list).
+4. Uses BFS and DFS to see which devices can be reached from which.
+5. Gives each device a risk score based on how vulnerable it is, how much access it has, and how important it is.
+6. Uses a priority queue so the riskiest devices come out first.
+7. Labels each device low, medium, or high risk.
+8. Suggests actions like patching, limiting access, and monitoring critical systems (still being finished).
 
-We built this using **C++ and Data Structures with an OOPS approach**, and we split things into separate classes rather than cramming everything together:
+## Project structure
 
-* `Device`
-* `NetworkGraph`
-* `RiskAnalyzer`
-* `PriorityManager`
-* `ReportGenerator`
+- **Host:** stores a device's information
+- **Edge:** a connection between two devices
+- **Graph:** holds all hosts and connections
+- **Traversal:** BFS and DFS
+- **Risk analysis:** the scoring logic
+- **Priority queue:** orders hosts by risk
+- **Reporting:** in progress
 
-Honestly this just made our lives easier — if we need to change or add something later, we're not digging through one giant file trying not to break everything else.
+## Where we are
 
----
+**Done:** the Host, Edge, and Graph classes, neighbor lists, BFS/DFS, risk scoring, priority queue ranking, and text file input.
 
-## How Risk Gets Categorized
+**Still to do:** hash map for faster lookups, a BST for organizing risk data, better reports, performance testing, and more tests.
 
-At the end of it all, every device lands in one of three categories:
+## Running it
 
-* **Low Risk**
-* **Medium Risk**
-* **High Risk**
+Compile your `.cpp` files and run the program. For example:
 
-And along with that, it gives a few practical suggestions — nothing fancy, just useful stuff like:
+```
+g++ -std=c++17 -Iinclude src/main.cpp -o netshield
+./netshield
+```
 
-* Apply security updates
-* Cut back on access that isn't really needed
-* Keep a closer eye on the devices that matter most
+Check the file paths in the repo first, since yours may differ.
 
-## Tech Stack
+## Testing
 
-* **Language:** C++
-* **Core Concepts:** DSA (Data Structures & Algorithms), OOP, Graph Algorithms
-* **Tools:** VS Code, Git & GitHub
+We plan to test building hosts and graphs, bad or incomplete input, BFS/DFS results, score calculations, queue order, risk labels, and disconnected or larger networks. We'll only mark a test as passed once we've actually run it.
 
-## Why We're Actually Doing This
+## A note on scope
 
-If we're being honest, this project started because we wanted to see if all the stuff we'd learned — Graphs, BFS, DFS, Priority Queues, Hashing, BST, OOP — that usually just feels like exam material, could actually be used for something real. Turns out network security is a pretty good place to test that out, since catching a risky device early is a lot better than dealing with the aftermath of an attack.
-
-**Status:** Still building this out — right now it's just Phase 1.
+NetShield is for defensive and educational use. Its scores help decide what to look at first. They don't prove a device is safe or hacked, and the results are only as good as the input data.
