@@ -33,17 +33,6 @@ Most security tools check one device at a time. Attackers don't work that way. T
 
 **Still to do:** hash map for faster lookups, a BST for organizing risk data, better reports, performance testing, and more tests.
 
-## Running it
-
-Compile your `.cpp` files and run the program. For example:
-
-```
-g++ -std=c++17 -Iinclude src/main.cpp -o netshield
-./netshield
-```
-
-Check the file paths in the repo first, since yours may differ.
-
 ## Testing
 
 We plan to test building hosts and graphs, bad or incomplete input, BFS/DFS results, score calculations, queue order, risk labels, and disconnected or larger networks. We'll only mark a test as passed once we've actually run it.
